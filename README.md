@@ -5,7 +5,7 @@
 Osusume is a library to implement text-based recommendation engine using Cohere Embeddings and Generation API. 
 Initally was built for a Hacktahon Submission hosted by Lablab.AI and Cohere.
 
-[View Changelog](github.com/abhishtagatya/osusume/blob/master/CHANGELOG.md)
+[View Changelog](https://github.com/abhishtagatya/osusume/blob/master/CHANGELOG.md)
 
 ## Quick Start
 
