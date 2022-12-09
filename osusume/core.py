@@ -1,3 +1,4 @@
+import warnings
 from typing import Any, List, Tuple
 
 import pandas as pd
@@ -42,6 +43,9 @@ class Osusume(BaseEngine):
         self._feat_ext_col2 = f'{__name__}-keyword_str'
 
     def fit(self):
+        if self.dataset[self.sentiment_column].isnull().values.any():
+            raise ValueError(f'Found `NaN` values at `sentiment_column` of {self.sentiment_column}')
+
         _feature_ext = FeatureExtract(
             series=self.dataset[self.sentiment_column]
         )

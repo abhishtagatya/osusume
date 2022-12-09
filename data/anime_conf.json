@@ -1,0 +1,10 @@
+{
+  "token": "<cohere-token>",
+  "dataset": "data/anime_sm.json",
+  "sentiment_column": "synopsis",
+  "response_prompt": "data/anime_data.txt",
+  "response_column": [
+    ["Title", "title"],
+    ["Synopsis", "synopsis"]
+  ]
+}

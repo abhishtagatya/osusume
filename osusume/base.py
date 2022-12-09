@@ -1,5 +1,8 @@
 import os.path
 import pathlib
+import json
+import yaml
+from yaml.loader import SafeLoader
 from typing import List, Dict
 
 import pandas as pd
@@ -26,8 +29,8 @@ class BaseEngine:
                  generation_model: str = 'large',
                  similarity_model: str = 'CSI'
                  ):
-        self.dataset = dataset
         self.sentiment_column = sentiment_column
+        self.dataset = dataset
 
         self._token = token
         self._columns = columns
@@ -56,7 +59,7 @@ class BaseEngine:
             raise ValueError('Config key `token` cannot be empty.')
 
         dataset = config.get('dataset', '')
-        if type(config) is str:
+        if type(dataset) is str:
             if os.path.exists(dataset):
                 ext_file_df = pathlib.Path(dataset).suffix
                 if ext_file_df == '.csv':
@@ -102,11 +105,31 @@ class BaseEngine:
 
     @classmethod
     def from_json(cls, config: str = None):
-        pass
+        if os.path.exists(config):
+            ext_file_df = pathlib.Path(config).suffix
+            if ext_file_df == '.json':
+                with open(config, 'r') as config_file:
+                    config_json = json.load(config_file)
+
+                return cls.from_dict(config_json)
+            else:
+                raise ValueError(f'Config file {config} is not in JSON Format.')
+
+        raise FileNotFoundError(f'Config file {config} is not found.')
 
     @classmethod
     def from_yaml(cls, config: str = None):
-        pass
+        if os.path.exists(config):
+            ext_file_df = pathlib.Path(config).suffix
+            if ext_file_df == '.yaml' or ext_file_df == '.yml':
+                with open(config, 'r') as config_file:
+                    config_yaml = yaml.load(config_file, Loader=SafeLoader)
+
+                return cls.from_dict(config_yaml)
+            else:
+                raise ValueError(f'Config file {config} is not in YAML Format.')
+
+        raise FileNotFoundError(f'Config file {config} is not found.')
 
     def calculate_sim(self, emb_a, emb_b, n_out: int = 5):
         if self._similarity_model is None or self._similarity_model not in self.SIMILARITY_MODEL:

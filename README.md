@@ -18,7 +18,7 @@ nltk.download('omw-1.4')
 
 from osusume import Osusume
 
-anime_df = pd.read_json('anime_dataset.json')
+anime_df = pd.read_json('anime_sm.json')
 
 engine = Osusume.from_dict({
     'token': '<cohere-token>',

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "osusume"
-version = "1.0.0"
+version = "1.0.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 authors = [
   { name="Abhishta Gatya", email="abhishtagatya@yahoo.com" },

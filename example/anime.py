@@ -50,6 +50,7 @@ if __name__ == '__main__':
         'mal_rating', 'mal_score', 'mal_reviewer', 'mal_rank', 'mal_popularity']
     ].dropna(subset=['synopsis'])
     df_top_anime['synopsis_clean'] = df_top_anime['synopsis']
+    df_top_anime.to_json(data_dir + 'anime_sm.json', orient='records')
 
     df_top_anime = text_clean_frame(
         dataframe=df_top_anime,
